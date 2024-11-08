@@ -19,6 +19,10 @@ class FSM
 
     handleInput(input)
     {
+        if(this.inputElement.textContent === "0")
+        {
+            this.inputElement.innerHTML = "" 
+        }
         if(this.numbers.includes(input))
         {
             this.handleNumber(input)
@@ -37,7 +41,7 @@ class FSM
         else if(input === "C")
         {
             const state = this.operationsStack.at(-1)
-            this.inputElement.innerHTML = ""
+            this.inputElement.innerHTML = "0"
             this.operationsStack = []
             this.operationsStack.push(this.states.EMPTY)
         }
@@ -57,9 +61,13 @@ class FSM
         switch(state)
         {
             case this.states.SIGN:
+                this.inputElement.textContent = this.inputElement.textContent.slice(0, -1)
+                this.inputElement.innerHTML = `<span style="opacity: 0.3">${this.inputElement.innerHTML}</span>${input}`
                 break
             case this.states.EMPTY:
-                break
+                if(input === "-")
+                    this.inputElement.innerHTML = input
+                return
             default:
                 this.inputElement.innerHTML = `<span style="opacity: 0.3">${this.inputElement.innerHTML}</span>${input}`
                 break
