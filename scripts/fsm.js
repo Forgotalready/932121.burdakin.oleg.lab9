@@ -78,6 +78,13 @@ class FSM
     handleNumber(input)
     {
         const state = this.operationsStack.at(-1)
+
+        if(input === '.')
+        {
+            if(!(this.numbers.includes(this.inputElement.textContent.at(-1)) && this.inputElement.textContent.at(-1) !== ".")) 
+                return        
+        }
+
         switch(state)
         {
             case this.states.NUM:
